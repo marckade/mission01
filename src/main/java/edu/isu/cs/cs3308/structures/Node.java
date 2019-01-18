@@ -6,6 +6,10 @@ public class Node<E>
 
     private E data;
 
+    public Node(E data) {
+        this.data = data;
+    }
+
     public Node<E> getNext() {
         return next;
     }
@@ -18,6 +22,7 @@ public class Node<E>
         return data;
     }
 
+    // Basic constructor for node including data.
     public void setData(E data) {
         this.data = data;
     }

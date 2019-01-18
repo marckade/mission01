@@ -14,30 +14,68 @@ public class SinglyLinkedList<E> implements List<E>
     @Override
     public E first()
     {
-        return null;
+        if(head == null)
+        {
+            return null;
+        }
+
+        return (E) head;
     }
 
     @Override
     public E last()
     {
-        return null;
+        return (E) tail;
     }
 
     @Override
     public void addLast(E node)
     {
+        if(node == null)
+        {
+            // Does nothing in the case of first value null;
+            return;
+        }
+
+        // Create new node and set its next to null to signify its the end of the list.
+        Node<E> newNode = new Node<>(node);
+        newNode.setNext(null);
+
+        //sets current tails to next then replaced tail with the new node (new end)
+        tail.setNext(newNode);
+        tail = newNode;
 
     }
 
     @Override
     public void addFirst(E node)
     {
-
+        if(node == null)
+        {
+            // Does nothing in the case of first value null;
+            return;
+        }
+        else
+        {
+            Node<E> newNode = new Node<>(node);
+            newNode.setNext(head);
+            head = newNode;
+        }
     }
 
     @Override
     public E removeFirst()
     {
+
+        // Created tempNode variable to store new head temporarily. 
+        Node<E> tempNode;
+
+        // the new head is in the tempNode variable.
+        tempNode = head.getNext();
+
+
+
+
         return null;
     }
 
