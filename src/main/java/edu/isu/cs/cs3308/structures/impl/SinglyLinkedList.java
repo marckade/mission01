@@ -67,22 +67,38 @@ public class SinglyLinkedList<E> implements List<E>
     public E removeFirst()
     {
 
-        // Created tempNode variable to store new head temporarily. 
+        // Created tempNode variable to store new head temporarily.
         Node<E> tempNode;
 
         // the new head is in the tempNode variable.
         tempNode = head.getNext();
 
+        // Sets next of current head to null which should leave for garbage collection.
+        head.setNext(null);
 
+        // Sets new head to the tempNode;
+        head = tempNode;
 
-
-        return null;
+        return (E) head;
     }
 
     @Override
     public E removeLast()
     {
-        return null;
+
+        // Created tempNode variable to store new head temporarily.
+        Node<E> tempNode;
+
+        // set tempNode to head.
+        tempNode = head;
+
+        while(tempNode.getNext() != null)
+        {
+            tempNode = tempNode.getNext();
+        }
+
+
+        return (E) tail;
     }
 
     @Override
