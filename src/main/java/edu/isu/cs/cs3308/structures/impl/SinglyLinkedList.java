@@ -101,31 +101,43 @@ public class SinglyLinkedList<E> implements List<E>
             {
                 tail = newNode;
             }
+
+
+            size++;
         }
 
-        size++;
 
     }
 
+    /**
+     * Removes the element at the front of the list.
+     *
+     * @return Element at the front of the list, or null if the list is empty.
+     */
     @Override
     public E removeFirst()
     {
 
-        // Created tempNode variable to store new head temporarily.
-        Node<E> tempNode;
+        if(size > 0)
+        {
+            // Created tempNode variable to store new head temporarily.
+            Node<E> tempNode;
 
-        // the new head is in the tempNode variable.
-        tempNode = head.getNext();
+            // the new head is in the tempNode variable.
+            tempNode = head.getNext();
 
-        // Sets next of current head to null which should leave for garbage collection.
-        head.setNext(null);
+            // Sets next of current head to null which should leave for garbage collection.
+            head.setNext(null);
 
-        // Sets new head to the tempNode;
-        head = tempNode;
+            // Sets new head to the tempNode;
+            head = tempNode;
 
-        size--;
+            size--;
 
-        return head.getData();
+            return head.getData();
+        }
+
+        return null;
     }
 
     @Override
@@ -239,10 +251,37 @@ public class SinglyLinkedList<E> implements List<E>
 
     }
 
+    /**
+     * Retrieves the value at the specified index. Will return null if the index
+     * provided is less than 0 or greater than or equal to the current size of
+     * the list.
+     *
+     * @param index Index of the value to be retrieved.
+     * @return Element at the given index, or null if the index is less than 0
+     * or greater than or equal to the list size.
+     */
     @Override
     public E get(int index)
     {
-        return null;
+        if(index < 0 || index >= size)
+        {
+            return null;
+        }
+        else
+        {
+            Node<E> tempnode;
+
+            // index being 0,1,2,3
+            tempnode = head;
+
+            for(int i = 0; i < index; i++)
+            {
+                tempnode = tempnode.getNext();
+            }
+
+            return tempnode.getData();
+        }
+
     }
 
     @Override
@@ -262,28 +301,30 @@ public class SinglyLinkedList<E> implements List<E>
     public boolean isEmpty()
     {
         if(head == null)
-        return false;
+        return true;
         else
         {
-            return true;
+            return false;
         }
     }
 
+    /**
+     * Prints the contents of the list in a single line separating each element
+     * by a new line to the default System.out
+     */
     public void printList()
     {
         Node<E> tempNode;
 
         tempNode = head;
 
-        while(tempNode != null)
+        for(int i = 0; i < size; i++)
         {
-            System.out.print(tempNode.getData());
+            System.out.println(tempNode.getData());
 
-            while(tempNode.getNext() != null)
-            {
-                tempNode = tempNode.getNext();
-            }
+            tempNode = tempNode.getNext();
         }
+
     }
 
 
