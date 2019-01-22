@@ -45,21 +45,32 @@ public class SinglyLinkedList<E> implements List<E>
     @Override
     public void addLast(E element)
     {
-        if(element == null)
+        if(size > 0)
         {
-            // Does nothing in the case of first value null;
-            return;
+            if(element == null)
+            {
+                // Does nothing in the case of first value null;
+                return;
+            }
+            else {
+
+                // Create new node and set its next to null to signify its the end of the list.
+                Node<E> newNode = new Node<>(element);
+                newNode.setNext(null);
+
+                //sets current tails to next then replaced tail with the new node (new end)
+                tail.setNext(newNode);
+                tail = newNode;
+
+                size++;
+            }
+        }
+        else
+        {
+            addFirst(element);
         }
 
-        // Create new node and set its next to null to signify its the end of the list.
-        Node<E> newNode = new Node<>(element);
-        newNode.setNext(null);
 
-        //sets current tails to next then replaced tail with the new node (new end)
-        tail.setNext(newNode);
-        tail = newNode;
-
-        size++;
 
     }
 
@@ -72,6 +83,7 @@ public class SinglyLinkedList<E> implements List<E>
     @Override
     public void addFirst(E element)
     {
+
         if(element == null)
         {
             // Does nothing in the case of first value null;
@@ -82,9 +94,17 @@ public class SinglyLinkedList<E> implements List<E>
             Node<E> newNode = new Node<>(element);
             newNode.setNext(head);
             head = newNode;
+
+            // Checks if the addFirst was the first
+            // element to be added.
+            if(size == 0)
+            {
+                tail = newNode;
+            }
         }
 
         size++;
+
     }
 
     @Override
@@ -187,29 +207,35 @@ public class SinglyLinkedList<E> implements List<E>
      */
     public E remove(int index)
     {
-        Node<E> tempnode;
 
-        // index being 0,1,2,3
-        tempnode = head;
-
-        for(int i = 0; i < index - 1; i++)
+        if(index >= size)
         {
-            tempnode = tempnode.getNext();
+            return null;
         }
-
-        Node<E> tempnodeTwo;
-
-        // index being 0,1,2,3
-        tempnodeTwo = head;
-
-        for(int i = 0; i < index; i++)
+        else
         {
-            tempnodeTwo = tempnodeTwo.getNext();
+            Node<E> tempnode;
+
+            // index being 0,1,2,3
+            tempnode = head;
+
+            for(int i = 0; i < index - 1; i++)
+            {
+                tempnode = tempnode.getNext();
+            }
+
+            Node<E> tempnodeTwo;
+
+            tempnodeTwo = tempnode.getNext();
+
+            tempnode.setNext(tempnodeTwo.getNext());
+
+            tempnodeTwo.setNext(null);
+
+            size--;
+
+            return tempnodeTwo.getData();
         }
-
-        
-
-
 
     }
 
