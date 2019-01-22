@@ -32,12 +32,15 @@ public class Scoreboard {
      */
     public void add(GameEntry entry) {
 
-        if(entry == null)
+        if(entry == null && capacity >= size())
         {
             // Nothing happens.
         }
+        else
+        {
+            board.addFirst(entry);
+        }
 
-        board.addFirst(entry);
     }
 
     /**

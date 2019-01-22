@@ -33,7 +33,14 @@ public class SinglyLinkedList<E> implements List<E>
     @Override
     public E last()
     {
-        return tail.getData();
+        if(size > 0)
+        {
+            return tail.getData();
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -140,24 +147,40 @@ public class SinglyLinkedList<E> implements List<E>
         return null;
     }
 
+    /**
+     * Removes the element at the end of the list.
+     *
+     * @return Element at the end of the list, or null if the list is empty.
+     */
     @Override
     public E removeLast()
     {
 
-        // Created tempNode variable to store new head temporarily.
-        Node<E> tempNode;
-
-        // set tempNode to head.
-        tempNode = head;
-
-        while(tempNode.getNext() != null)
+        //Check list size
+        if(size > 0)
         {
-            tempNode = tempNode.getNext();
+            // Created tempNode variable to store new head temporarily.
+            Node<E> tempNode;
+
+            // set tempNode to head.
+            tempNode = head;
+
+            while(tempNode.getNext() != null)
+            {
+                tempNode = tempNode.getNext();
+            }
+
+            //Iterate size down
+            size--;
+
+            //Return tails data.
+            return tail.getData();
+        }
+        else
+        {
+            return null;
         }
 
-        size--;
-
-        return (E) tail;
 
     }
 
@@ -174,18 +197,21 @@ public class SinglyLinkedList<E> implements List<E>
     @Override
     public void insert(E element, int index)
     {
+        //If the element is null or the index is less than 0,
         if(element == null || index < 0)
         {
             // Do nothing.
         }
         else
         {
+            // If index is greater or equal to in size then do the end instead.
             if(index >= size)
             {
                addLast(element);
             }
             else
             {
+                //Create new tempnode.
                 Node<E> tempnode;
 
                 // index being 0,1,2,3
@@ -197,12 +223,16 @@ public class SinglyLinkedList<E> implements List<E>
                     tempnode = tempnode.getNext();
                 }
 
+                // Create newnode with element parameter.
                 Node<E> newNode = new Node<>(element);
 
+                //Set the next for the new node equal to the tempnodes next.
                 newNode.setNext(tempnode.getNext());
 
+                //Set tempnodes next to the new node to complete insert.
                 tempnode.setNext(newNode);
 
+                //Iterate size
                 size++;
             }
 
@@ -220,30 +250,39 @@ public class SinglyLinkedList<E> implements List<E>
     public E remove(int index)
     {
 
-        if(index >= size)
+        // If index is greater than or equal to size OR if index is less than 0, return null
+        if(index >= size || index < 0)
         {
             return null;
         }
         else
         {
+
+            //Create new tempnode.
             Node<E> tempnode;
 
             // index being 0,1,2,3
             tempnode = head;
 
+            //Iterate tempnode to index - 1
             for(int i = 0; i < index - 1; i++)
             {
                 tempnode = tempnode.getNext();
             }
 
+            //Create new tempnode and set it equal to the node we want to remove.
             Node<E> tempnodeTwo;
 
+            //Sets tempTwo to the pointed node of tempnode
             tempnodeTwo = tempnode.getNext();
 
+            //Sets tempnodes next to the next of the second tempnode.
             tempnode.setNext(tempnodeTwo.getNext());
 
+            //Deletes the second tempnode by setting it to null.
             tempnodeTwo.setNext(null);
 
+            //Iterates down.
             size--;
 
             return tempnodeTwo.getData();
@@ -284,6 +323,7 @@ public class SinglyLinkedList<E> implements List<E>
 
     }
 
+    //Checks size
     @Override
     public int size()
     {
@@ -297,6 +337,7 @@ public class SinglyLinkedList<E> implements List<E>
 
     }
 
+    //Checks if the list is empty by checking head.
     @Override
     public boolean isEmpty()
     {
@@ -318,6 +359,7 @@ public class SinglyLinkedList<E> implements List<E>
 
         tempNode = head;
 
+        //Iterates through the linked list and prints the data.
         for(int i = 0; i < size; i++)
         {
             System.out.println(tempNode.getData());
